@@ -283,6 +283,18 @@ else
   endif
 endif
 
+WAYLAND ?= 1
+WAYLAND_PROTOCOL_DIR=$(BUILDDIR)/wayland-protocols
+ifneq ($(WAYLAND), 0)
+	SOURCES += \
+		$(WAYLAND_PROTOCOL_DIR)/wayland.c \
+		$(WAYLAND_PROTOCOL_DIR)/tablet-v2.c
+
+	INCSYS += $(WAYLAND_PROTOCOL_DIR)
+
+	PKGS += wayland-client
+endif
+
 ifneq ($(DEBUG), 0)
   # use asan by default for debug build
   SANITIZE = 1
